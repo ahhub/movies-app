@@ -18,6 +18,13 @@ const loadAll = async (url) => {
 	afterJson.results.forEach((each) => {
 		const eachContainer = document.createElement('div');
 		eachContainer.classList.add('each-container');
+
+		const findColor = () => {
+			if (each.vote_average > 7) return 'green';
+			if (each.vote_average >= 6) return 'blue';
+			if (each.vote_average < 6) return 'red';
+		};
+
 		eachContainer.innerHTML = `
 					<img
 						src="${imagePath + each.poster_path}"
@@ -25,7 +32,7 @@ const loadAll = async (url) => {
 					/>
 					<div class="movie-name">
 						<h2>${each.title}</h2>
-						<p>${each.vote_average}</p>
+						<p class = "${findColor()}">${each.vote_average}</p>
 					</div>
 
 					<div class="movie-review">
@@ -33,6 +40,7 @@ const loadAll = async (url) => {
                         ${each.overview}
 					</div>
         `;
+
 		insertHere.appendChild(eachContainer);
 	});
 };
